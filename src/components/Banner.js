@@ -18,7 +18,7 @@ const Banner = () => {
             </Link>
          </div>
          <div className="flex items-center justify-center w-1/2 ">
-            <Lottie className="w-4/5" animationData={BannerImage} />;
+            <Lottie className="w-4/5" animationData={BannerImage} />
          </div>
       </header>
    );

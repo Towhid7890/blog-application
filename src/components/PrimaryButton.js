@@ -2,7 +2,7 @@ const PrimaryButton = ({ children, isDirty, isValid }) => {
    return (
       <button
          disabled={!isDirty || !isValid}
-         className="children-xl font-bold bg-secondary rounded-lg px-2 py-[6px] hover:scale-[0.99] duration-1000"
+         className="children-xl uppercase  font-bold bg-secondary rounded-lg px-2 py-2 hover:scale-75 duration-1000"
         
       >
          {children}

@@ -1,0 +1,6 @@
+.ImageInput input::-webkit-file-upload-button , input::-moz-file-upload-button{
+   display: none;
+}
+.ImageInput input::file-selector-button {
+   display: none;
+ }
