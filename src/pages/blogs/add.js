@@ -3,13 +3,62 @@ import ImageInput from "@/components/ImageInput";
 import { useForm } from 'react-hook-form';
 import TextInput from './../../components/TextInput';
 import PrimaryButton from './../../components/PrimaryButton';
+import { useState } from "react";
+import ErrorMessage from "@/components/ErrorMessage";
+import { toast } from "react-hot-toast";
+
 
 const add = () => {
+   const    [submissionError, setSubmissionError] = useState(''); 
    const {register, handleSubmit, formState:{errors, isDirty, isValid}} = useForm({
       mode: "onChange"
    });
-   const onSubmit  = (data) => {
-      console.log(data); 
+   const key = process.env.NEXT_PUBLIC_ImageBB;
+   
+   const onSubmit  = async(data) => {
+      setSubmissionError(''); 
+      const {title, description, image} = data; 
+      
+      const formData =new FormData(); 
+      formData.append("image",image[0]); 
+      try{
+         const res =await fetch(`https://api.imgbb.com/1/upload?key=${key}`, {
+            method:"POST", 
+            body:formData
+         })
+         const imageData = await res.json(); 
+         console.log(imageData); 
+         if(imageData?.data?.url){
+            const blog = {
+               title, 
+               description, 
+               image:   imageData?.data?.url,
+               date: new Date().toISOString(), 
+               author: "", 
+               email:"", 
+            }
+            console.log(blog); 
+            
+            const response =await fetch('http://localhost:5000/blogs', {
+               method:"POST", 
+               headers:{
+                  "content-type": "application/json", 
+               }, 
+               body: JSON.stringify(blog)
+            })
+
+            const result = await response.json(); 
+            console.log(result);
+            if(result.acknowledged){
+               toast.success('Successfully toasted!')
+            }
+
+         }
+      }
+      catch(err){
+         setSubmissionError(err.message); 
+      }
+      
    }
    return (
       <div className="flex items-center justify-center h-screen ">
@@ -31,9 +80,13 @@ const add = () => {
                register={register}
                errors={errors}
             ></ImageInput>
+            {
+               submissionError && <ErrorMessage>{submissionError}</ErrorMessage>
+            }
             <PrimaryButton isDirty={isDirty} isValid={isValid}>
                 Create Blog
             </PrimaryButton>
+         
          </form>
       </div>
    );
