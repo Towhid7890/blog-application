@@ -1,0 +1,6 @@
+.registerPage{
+   background: linear-gradient(rgba(83, 127, 231, 0.93), rgba(84, 129, 232, 0.49)), url("../assets/registerBg.jpg") no-repeat ;
+   background-size: cover;
+   background-blend-mode:overlay;
+
+}

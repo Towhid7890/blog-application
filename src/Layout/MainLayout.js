@@ -5,6 +5,7 @@ const MainLayout = ({children}) => {
    return (
       <>
          <Nav></Nav>
+        
          <div className="min-h-[85vh]">
                {
                   children

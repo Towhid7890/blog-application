@@ -4,7 +4,9 @@ const Banner = () => {
          <div>
             <h2>Welcome to Blog BD</h2>
          </div>
-         <div></div>
+         <div>
+            
+         </div>
       </header>
    );
 };
